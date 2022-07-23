@@ -12,4 +12,4 @@ for i in range(T):
                 error +=1
     if error ==0:
         group_cnt += 1
-print(group_cnt)
+print(group_cnt) #0723

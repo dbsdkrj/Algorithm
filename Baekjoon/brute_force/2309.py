@@ -29,7 +29,3 @@ for i in range(n):
             exit()
 
 print('\n'.join(map(str, arr)))
-
-# https://ywtechit.tistory.com/133
-
-

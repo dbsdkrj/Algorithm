@@ -1,50 +1,62 @@
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(10**6)
+sys.setrecursionlimit(10 ** 6)
+from collections import deque
 
-n, m, r = map(int,input().split()) #정점의 수, 간선의 수, 시작 정점
-link = [[] for _ in range(n+1)] #[ [ None ], [노드1用], [ 노드2用], ... ]
+n, m, r = map(int, input().split())  #정점의 수, 간선의 수, 시작 정점
+link = [[] for _ in range(n + 1)]  #[ [ None ], [노드1用], [ 노드2用], ... ]
 
-for i in range(m): #간선 수만큼
-    u, v = map(int, input().split())  # 1, 2
-    '''
-       1   2 
-    1 [ ] [ ]
-    2 [ ] [ ]
-    '''
-    #양방향 간선
-    link[u].append(v)  #(u,v)
-    link[v].append(u)  #(v,u)
-
+# 양방향 간선
+for _ in range(m):  #간선 수만큼
+    u, v = map(int, input().split())
+    link[u].append(v)  #노드 u 링크리스트에 v추가
+    link[v].append(u)  #노드 v 링크리스트에 u추가
 for arr in link:
-    arr.sort()  #오름차순
+    arr.sort()
 
-cnt = 1  #방문 순서
-visited = [0]*(n+1)  #방문 여부
-def dfs(x): #노드x 방문
-    global cnt
-    visited[x] = cnt  #노드x에 방문함을 표시
-    for k in link[x]:  #노드x와 연결된 노드들 방문
-        if visited[k]:  #노드x와 연결된 노드들이 이미 방문됐었으면 pass
+cnt = 1
+visited = [0] * (n + 1)  #방문 여부 리스트
+visited[r] = 1 #첫번째 노드의 방문 순서는 1
+q = deque([r])  # 첫번째 노드가 들어있는 큐를 하나 만든다.  q = [r]
+'''
+deque = 양방향 연결리스트. 양끝에 접근 가능
+    #append, appendleft, pop, popleft
+'''
+while (q): #q가 비어있을 때까지 반복
+    a = q.popleft()  # q의 왼쪽에서 pop하고 a에 저장 a=r, q=[]
+    for i in link[a]:  #노드 a에 연결된 노드들 = i
+        if visited[i]:  #노드 i를 방문했었다면 pass
             continue
-        cnt += 1 #다음 방문 순서 표기를 위해 +1
-        dfs(k) #재귀
+        cnt += 1  #방문 순서 +1
+        visited[i] = cnt  #i번째 노드를 방문했다고 표시
+        q.append(i) #q에 i 추가
 
-dfs(r)  #처음 방문하는 노드는 r
-
-for j in range(1, n+1):
+for j in range(1, n + 1):
     print(visited[j])
 
 '''
 link = [[],[2, 4],[1, 3, 4],[2, 4],[1,2,3],[]]
-visited = [0, 0, 0, 0, 0, 0]  
+visited = [0, 1, 0, 0, 0, 0]
+q = [1]
 
-visited = [0, 1, 0, 0, 0, 0]  #k = 2, 4     =>2
+a=1
+q = []
+visited = [0, 1, 2, 0, 0, 0]
+q = [2]
+visited = [0, 1, 2, 0, 3, 0]
+q = [2, 4]
 
-visited = [0, 1, 2, 0, 0, 0]  #k = 1, 3, 4  =>3
+a=2
+q=[4]
+visited = [0, 1, 2, 4, 3, 0]
+q = [4, 3]
 
-visited = [0, 1, 2, 3, 0, 0]  #k = 2, 4     =>4
+a=4
+q=[3]
 
-visited = [0, 1, 2, 3, 4, 0]  #k = 2, 4     => exit
+a=3
+q=[]
+
+exit
 
 '''

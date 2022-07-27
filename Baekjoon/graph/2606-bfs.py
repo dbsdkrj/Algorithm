@@ -20,10 +20,10 @@ for i in range(m):
 visited = [0] * (n+1)
 
 #BFS
-def bsf():
-    q = deque([1])
+def bsf(n):
+    q = deque([n])
     global visited
-    visited[1] = True
+    visited[n] = True
     while(q):
         a = q.popleft()
         for i in link[a]:
@@ -31,6 +31,6 @@ def bsf():
                 continue
             visited[i] = True
             q.append(i)
-bsf()
+bsf(1)
 
 print(visited.count(True)-1)

@@ -29,7 +29,22 @@ def dfs(x): #노드x 방문
             continue
         cnt += 1 #다음 방문 순서 표기를 위해 +1
         dfs(k) #재귀
+
 dfs(r)  #처음 방문하는 노드는 r
 
 for j in range(1, n+1):
     print(visited[j])
+
+'''
+link = [[],[2, 4],[1, 3, 4],[2, 4],[1,2,3],[]]
+visited = [0, 0, 0, 0, 0, 0]  
+
+visited = [0, 1, 0, 0, 0, 0]  #k = 2, 4     =>2
+
+visited = [0, 1, 2, 0, 0, 0]  #k = 1, 3, 4  =>3
+
+visited = [0, 1, 2, 3, 0, 0]  #k = 2, 4     =>4
+
+visited = [0, 1, 2, 3, 4, 0]  #k = 2, 4     => exit
+
+'''

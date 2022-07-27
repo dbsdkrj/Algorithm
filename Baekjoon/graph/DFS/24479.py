@@ -8,7 +8,7 @@ link = [[] for _ in range(n+1)] #[ [ None ], [노드1用], [ 노드2用], ... ]
 for i in range(m): #간선 수만큼
     u, v = map(int, input().split())  # 1, 2
     '''
-       1   2
+       1   2 
     1 [ ] [ ]
     2 [ ] [ ]
     '''
